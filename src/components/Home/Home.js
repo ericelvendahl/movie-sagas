@@ -4,7 +4,7 @@ import MovieItem from "../MovieItem/MovieItem";
 
 class Home extends Component {
   componentDidMount() {
-    this.props.dispatch({ type: "FETCH_MOVIES" });
+    this.getMovies();
   }
   getMovies = () => {
     this.props.dispatch({ type: "FETCH_MOVIES" });

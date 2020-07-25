@@ -3,14 +3,17 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
 class MovieItem extends Component {
+  componentDidMount(){
+
+  }
   getMovies = () => {
     this.props.dispatch({ type: "FETCH_MOVIES" });
   };
   goToDetails = () => {
-    this.props.dispatch({
-      type: "FETCH_CURRENT_MOVIE",
-      payload: this.props.thisItem,
-    });
+    // this.props.dispatch({
+    //   type: "FETCH_CURRENT_MOVIE",
+    //   payload: this.props.thisItem,
+    // });
     this.props.history.push(`/details/${this.props.thisItem.id}`);
   };
   render() {

@@ -27,13 +27,14 @@ function* rootSaga() {
 }
 
 function* fetchCurrentMovieSaga(action) {
-  console.log("in fetchQueryResultSaga");
+  console.log("in fetchCurrentMovieSaga. action.payload is:", action.payload);
   try {
-    const response = yield axios.get("/api/details/" + action.payload.id);
+    const response = yield axios.get("/api/details/" + action.payload);
     console.log(
       "sending from fetchCurrentMovieSaga: /api/details/ + ",
-      action.payload.id
+      action.payload
     );
+    console.log(response.data);
     yield put({ type: "SET_CURRENT_MOVIE", payload: response.data });
   } catch (error) {
     console.log("Error with Get:", error);
@@ -98,8 +99,9 @@ const sagaMiddleware = createSagaMiddleware();
 // Create one store that all components can use
 const storeInstance = createStore(
   combineReducers({
-    genres,
+    currentMovie,
     details,
+    genres,
     movies,
   }),
   // Add sagaMiddleware to our store

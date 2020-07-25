@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
-class Details extends Component {
+class Edit extends Component {
   componentDidMount() {
     this.props.dispatch({
       type: "FETCH_CURRENT_MOVIE",
@@ -60,12 +60,13 @@ class Details extends Component {
           alt={this.state.thisMovie.title}
         ></img>
         <br />
-        {/* Show movie title */}
-        {this.state.thisMovie.title}
+        <br />
+        {/* Title edit box */}
+        <input type={Text} placeholder={this.state.thisMovie.title}></input>
         <br />
         <br />
-        {/* Show movie description */}
-        {this.state.thisMovie.description}
+        {/* Description edit box */}
+        <input type={Text} placeholder={this.state.thisMovie.description}></input>
         <br />
         <br />
         {this.state.thisMovie.array_agg.map((x) => {
@@ -85,4 +86,4 @@ const mapReduxStateToProps = (reduxState) => ({
   reduxState,
 });
 
-export default connect(mapReduxStateToProps)(withRouter(Details));
+export default connect(mapReduxStateToProps)(withRouter(Edit));
