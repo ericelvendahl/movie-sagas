@@ -19,18 +19,22 @@ function* rootSaga() {
   yield takeEvery("FETCH_MOVIES", fetchMoviesSaga);
 
   //   -yield takeEvery("FETCH_FAVORITE", getFavoriteSaga);
-  yield takeEvery("FETCH_DETAILS", fetchDetailsSaga);
+  yield takeEvery("FETCH_CURRENT_MOVIE", fetchCurrentMovieSaga);
   //   yield takeEvery("ADD_FAVORITE", addFavoriteSaga);
   //   yield takeEvery("DELETE_FAVORITE", deleteFavoriteSaga);
   //   yield takeEvery("CHANGE_CATEGORY", changeCategorySaga);
   //   yield takeEvery("FETCH_CATEGORY", getCategorySaga);
 }
 
-function* fetchDetailsSaga(thisMovie) {
+function* fetchCurrentMovieSaga(action) {
   console.log("in fetchQueryResultSaga");
   try {
-    const response = yield axios.get("/api/movie/" + thisMovie.id);
-    yield put({ type: "SET_DETAILS", payload: response.data });
+    const response = yield axios.get("/api/details/" + action.payload.id);
+    console.log(
+      "sending from fetchCurrentMovieSaga: /api/details/ + ",
+      action.payload.id
+    );
+    yield put({ type: "SET_CURRENT_MOVIE", payload: response.data });
   } catch (error) {
     console.log("Error with Get:", error);
   }
@@ -51,6 +55,15 @@ function* fetchMoviesSaga() {
 // Used to store details of currently displayed movie
 // Used to store movies returned from the server
 // Used to store the movie genres
+
+const currentMovie = (state = {}, action) => {
+  switch (action.type) {
+    case "SET_CURRENT_MOVIE":
+      return action.payload;
+    default:
+      return state;
+  }
+};
 
 const details = (state = [], action) => {
   switch (action.type) {
