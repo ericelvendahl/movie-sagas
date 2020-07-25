@@ -20,18 +20,18 @@ router.get("/", (req, res) => {
 
 // Return a movie based on id
 router.get("/:id", (req, res) => {
-    console.log("GET /api/movie");
-    pool
-      .query('SELECT * from "movies";')
-      .then((result) => {
-        console.log("in /api/movie GET");
-        res.send(result.rows);
-      })
-      .catch((error) => {
-        console.log("Error GET /api/movie", error);
-        res.sendStatus(500);
-      });
-  });
+  console.log("GET /api/movie/:id");
+  pool
+    .query(`SELECT * from "movies" WHERE id = ${req.params.id};`)
+    .then((result) => {
+      console.log("in /api/details/:id GET");
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log("Error GET /api/details/:id", error);
+      res.sendStatus(500);
+    });
+});
 
 // // add a new favorite
 // router.post("/", (req, res) => {

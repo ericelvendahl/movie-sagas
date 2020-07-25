@@ -17,6 +17,13 @@ import axios from "axios";
 function* rootSaga() {
   console.log("in rootSaga");
   yield takeEvery("FETCH_MOVIES", fetchMoviesSaga);
+
+  //   -yield takeEvery("FETCH_FAVORITE", getFavoriteSaga);
+  yield takeEvery("FETCH_QUERY_RESULT", fetchQueryResultSaga(action.payload));
+  //   yield takeEvery("ADD_FAVORITE", addFavoriteSaga);
+  //   yield takeEvery("DELETE_FAVORITE", deleteFavoriteSaga);
+  //   yield takeEvery("CHANGE_CATEGORY", changeCategorySaga);
+  //   yield takeEvery("FETCH_CATEGORY", getCategorySaga);
 }
 
 function* fetchMoviesSaga() {
@@ -29,9 +36,16 @@ function* fetchMoviesSaga() {
     console.log("Error in fetchMoviesSaga");
   }
 }
-// Create sagaMiddleware
-const sagaMiddleware = createSagaMiddleware();
 
+function* fetchQueryResultSaga(thisMovie) {
+  console.log("in fetchQueryResultSaga");
+  try {
+    const response = yield axios.get("/api/movie/" + thisMovie.id);
+    yield put({ type: "SET_FAVORITE", payload: response.data });
+  } catch (error) {
+    console.log("Error with Get:", error);
+  }
+}
 // Reducers
 // Used to store movies returned from the server
 // Used to store the movie genres
@@ -52,6 +66,9 @@ const movies = (state = [], action) => {
       return state;
   }
 };
+
+// Create sagaMiddleware
+const sagaMiddleware = createSagaMiddleware();
 
 // Create one store that all components can use
 const storeInstance = createStore(
