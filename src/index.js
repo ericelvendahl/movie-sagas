@@ -19,11 +19,21 @@ function* rootSaga() {
   yield takeEvery("FETCH_MOVIES", fetchMoviesSaga);
 
   //   -yield takeEvery("FETCH_FAVORITE", getFavoriteSaga);
-  yield takeEvery("FETCH_QUERY_RESULT", fetchQueryResultSaga(action.payload));
+  yield takeEvery("FETCH_DETAILS", fetchDetailsSaga);
   //   yield takeEvery("ADD_FAVORITE", addFavoriteSaga);
   //   yield takeEvery("DELETE_FAVORITE", deleteFavoriteSaga);
   //   yield takeEvery("CHANGE_CATEGORY", changeCategorySaga);
   //   yield takeEvery("FETCH_CATEGORY", getCategorySaga);
+}
+
+function* fetchDetailsSaga(thisMovie) {
+  console.log("in fetchQueryResultSaga");
+  try {
+    const response = yield axios.get("/api/movie/" + thisMovie.id);
+    yield put({ type: "SET_DETAILS", payload: response.data });
+  } catch (error) {
+    console.log("Error with Get:", error);
+  }
 }
 
 function* fetchMoviesSaga() {
@@ -37,18 +47,20 @@ function* fetchMoviesSaga() {
   }
 }
 
-function* fetchQueryResultSaga(thisMovie) {
-  console.log("in fetchQueryResultSaga");
-  try {
-    const response = yield axios.get("/api/movie/" + thisMovie.id);
-    yield put({ type: "SET_FAVORITE", payload: response.data });
-  } catch (error) {
-    console.log("Error with Get:", error);
-  }
-}
 // Reducers
+// Used to store details of currently displayed movie
 // Used to store movies returned from the server
 // Used to store the movie genres
+
+const details = (state = [], action) => {
+  switch (action.type) {
+    case "SET_DETAILS":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 const genres = (state = [], action) => {
   switch (action.type) {
     case "SET_GENRES":
@@ -73,8 +85,9 @@ const sagaMiddleware = createSagaMiddleware();
 // Create one store that all components can use
 const storeInstance = createStore(
   combineReducers({
-    movies,
     genres,
+    details,
+    movies,
   }),
   // Add sagaMiddleware to our store
   applyMiddleware(sagaMiddleware, logger)

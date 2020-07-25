@@ -24,7 +24,7 @@ router.get("/:id", (req, res) => {
   pool
     .query(`SELECT * from "movies" WHERE id = ${req.params.id};`)
     .then((result) => {
-      console.log("in /api/details/:id GET");
+      console.log("in /api/details/:id GET. result.rows is ", result.rows);
       res.send(result.rows);
     })
     .catch((error) => {
