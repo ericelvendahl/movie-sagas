@@ -12,8 +12,6 @@ class Home extends Component {
   render() {
     return (
       <>
-        {/* { for debugging:} */}
-        <button onClick={this.getMovies}>Get Movies</button>
         {/* map over contents of movies reducer, */}
         {/* creating a movieItem component for each */}
         {this.props.reduxState.movies.map((x, thisKey) => (
