@@ -9,7 +9,6 @@ class App extends Component {
   render() {
     return (
       <div className="theme">
-        I am App. Hear me roar.
         <Router>
           <Link to="/">Home</Link>
           {/* <Route exact path="/" component={Welcome} /> */}

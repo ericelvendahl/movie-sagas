@@ -12,6 +12,7 @@ class Home extends Component {
   render() {
     return (
       <>
+        {/* { for debugging:} */}
         <button onClick={this.getMovies}>Get Movies</button>
         {/* map over contents of movies reducer, */}
         {/* creating a movieItem component for each */}
@@ -19,8 +20,6 @@ class Home extends Component {
           <MovieItem thisItem={x} key={thisKey} />
         ))}
         <br />
-        this.props.reduxState.movies is: <br />
-        {/* {JSON.stringify(this.props.reduxState.movies)} */}
       </>
     );
   }
