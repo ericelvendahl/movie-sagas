@@ -20,6 +20,7 @@ function* rootSaga() {
 
   //   -yield takeEvery("FETCH_FAVORITE", getFavoriteSaga);
   yield takeEvery("FETCH_CURRENT_MOVIE", fetchCurrentMovieSaga);
+  yield takeEvery("UPDATE_MOVIE", updateMovieSaga);
   //   yield takeEvery("ADD_FAVORITE", addFavoriteSaga);
   //   yield takeEvery("DELETE_FAVORITE", deleteFavoriteSaga);
   //   yield takeEvery("CHANGE_CATEGORY", changeCategorySaga);
@@ -52,6 +53,14 @@ function* fetchMoviesSaga() {
   }
 }
 
+function* updateMovieSaga(action) {
+  console.log("in updateMovieSaga. action.payload is", action.payload);
+  try {
+    yield axios.put("/api/movie/", action.payload);
+  } catch {
+    console.log("Error in updateMovieSaga");
+  }
+}
 // Reducers
 // Used to store details of currently displayed movie
 // Used to store movies returned from the server

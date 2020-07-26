@@ -26,7 +26,7 @@ class MovieItem extends Component {
           onClick={this.goToDetails}
         ></img>
         <br />
-        **I am a MovieItem** My title is {this.props.thisItem.title}
+        {this.props.thisItem.title}
         <br />
       </>
     );
