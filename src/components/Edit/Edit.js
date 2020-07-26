@@ -21,6 +21,10 @@ class Edit extends Component {
       name: "",
       array_agg: [],
     },
+    movieEdits: {
+      title: "",
+      description: "",
+    },
   };
 
   componentDidUpdate(previousProps) {
@@ -34,12 +38,31 @@ class Edit extends Component {
     }
   }
 
-  backToListClicked = () => {
-    this.props.history.push("/");
+  cancelClicked = () => {
+    this.props.history.push(`/details/${this.state.thisMovie.id}`);
   };
 
-  editClicked = () => {
-    this.props.history.push(`/edit/${this.state.thisMovie.id}`);
+  handleDescriptionChange = (event) => {
+    this.setState({
+      movieEdits: { ...this.state.movieEdits, description: event.target.value },
+    });
+  };
+
+  handleTitleChange = (event) => {
+    this.setState({
+      movieEdits: { ...this.state.movieEdits, title: event.target.value },
+    });
+  };
+
+  saveClicked = () => {
+    // this.setState({
+    //   movieEdits: { ...this.state.movieEdits},
+    // });
+    this.props.dispatch({
+      type: "UPDATE_MOVIE",
+      payload: { ...this.state.movieEdits, id: this.state.thisMovie.id },
+    });
+    this.props.history.push(`/details/${this.state.thisMovie.id}`);
   };
 
   render() {
@@ -52,8 +75,9 @@ class Edit extends Component {
         {this.state.thisMovie === undefined ? (
           <br />
         ) : (
-          JSON.stringify(this.state.thisMovie)
+          JSON.stringify(this.state.movieEdits)
         )} */}
+        <h2>Edit Movie</h2>
         <br />
         <img
           src={this.state.thisMovie.poster}
@@ -62,21 +86,29 @@ class Edit extends Component {
         <br />
         <br />
         {/* Title edit box */}
-        <input type={Text} placeholder={this.state.thisMovie.title}></input>
+        <label>Title:</label>
+        <br />
+        <input
+          type="text"
+          value={this.state.movieEdits.title}
+          onChange={this.handleTitleChange}
+          placeholder={this.state.thisMovie.title}
+        ></input>
         <br />
         <br />
         {/* Description edit box */}
-        <input type={Text} placeholder={this.state.thisMovie.description}></input>
+        <label>Description:</label>
+        <br />
+        <input
+          type="text"
+          value={this.state.movieEdits.description}
+          onChange={this.handleDescriptionChange}
+          placeholder={this.state.thisMovie.description}
+        ></input>
         <br />
         <br />
-        {this.state.thisMovie.array_agg.map((x) => {
-          return x + " ";
-        })}
-        <br />
-        <br />
-        <button onClick={this.backToListClicked}>Back to list</button>
-        <br />
-        <button onClick={this.editClicked}>Edit</button>
+        <button onClick={this.cancelClicked}>Cancel</button>
+        <button onClick={this.saveClicked}>Save</button>
       </>
     );
   }

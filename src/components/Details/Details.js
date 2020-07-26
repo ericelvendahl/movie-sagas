@@ -54,7 +54,7 @@ class Details extends Component {
         ) : (
           JSON.stringify(this.state.thisMovie)
         )} */}
-        <br />
+
         <img
           src={this.state.thisMovie.poster}
           alt={this.state.thisMovie.title}
@@ -68,14 +68,15 @@ class Details extends Component {
         {this.state.thisMovie.description}
         <br />
         <br />
+        Genre:{" "}
         {this.state.thisMovie.array_agg.map((x) => {
           return x + " ";
         })}
         <br />
         <br />
-        <button onClick={this.backToListClicked}>Back to list</button>
-        <br />
         <button onClick={this.editClicked}>Edit</button>
+        <br />
+        <button onClick={this.backToListClicked}>Back to list</button>
       </>
     );
   }
