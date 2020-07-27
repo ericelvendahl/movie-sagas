@@ -1,0 +1,7 @@
+.parent {
+    display: flex;
+  }
+  
+  .child {
+    flex: 0 1 150px;
+  }
