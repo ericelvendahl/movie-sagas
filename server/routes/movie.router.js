@@ -37,11 +37,11 @@ router.get("/:id", (req, res) => {
 router.put("/", (req, res) => {
   // return all categories
   console.log("In movie router PUT. req.body is", req.body);
-  const queryText = `UPDATE movies SET title = '${req.body.title}', description = '${req.body.description}' WHERE id = ${req.body.id};`;
+  const queryText = `UPDATE movies SET title = $1, description = $2 WHERE id = $3;`;
   pool
-    .query(queryText)
+    .query(queryText, [req.body.title, req.body.description, req.body.id])
     .then((result) => {
-      console.log("in /api/movie put");
+      console.log("in /api/movie put. req.body is"), req.body;
       res.send(result.rows);
     })
     .catch((error) => {
