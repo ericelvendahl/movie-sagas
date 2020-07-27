@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import Fade from "react-reveal/Fade";
 
 class MovieItem extends Component {
-  componentDidMount(){
-
-  }
+  componentDidMount() {}
   getMovies = () => {
     this.props.dispatch({ type: "FETCH_MOVIES" });
   };
@@ -19,15 +18,17 @@ class MovieItem extends Component {
   render() {
     return (
       <>
-        <br />
-        <img
-          src={this.props.thisItem.poster}
-          alt={this.props.thisItem.title}
-          onClick={this.goToDetails}
-        ></img>
-        <br />
-        {this.props.thisItem.title}
-        <br />
+        <Fade left>
+          <div className="child">
+            <img
+              src={this.props.thisItem.poster}
+              alt={this.props.thisItem.title}
+              onClick={this.goToDetails}
+            ></img>
+            <br />
+            {this.props.thisItem.title}
+          </div>
+        </Fade>
       </>
     );
   }

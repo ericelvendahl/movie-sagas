@@ -3,12 +3,12 @@ import { HashRouter as Router, Route, Link } from "react-router-dom";
 import Home from "../Home/Home";
 import Details from "../Details/Details";
 import Edit from "../Edit/Edit";
-
+import "./App.css";
 class App extends Component {
   // Renders the entire app on the DOM
   render() {
     return (
-      <div className="theme">
+      <div className="App">
         <Router>
           <Link to="/">Home</Link>
           {/* <Route exact path="/" component={Welcome} /> */}
