@@ -9,10 +9,6 @@ class MovieItem extends Component {
     this.props.dispatch({ type: "FETCH_MOVIES" });
   };
   goToDetails = () => {
-    // this.props.dispatch({
-    //   type: "FETCH_CURRENT_MOVIE",
-    //   payload: this.props.thisItem,
-    // });
     this.props.history.push(`/details/${this.props.thisItem.id}`);
   };
   render() {

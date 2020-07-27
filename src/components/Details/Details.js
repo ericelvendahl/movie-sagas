@@ -8,9 +8,6 @@ class Details extends Component {
       type: "FETCH_CURRENT_MOVIE",
       payload: Number(this.props.match.params.id),
     });
-    // this.setState({
-    //   thisMovie: this.props.reduxState.currentMovie,
-    // });
   }
   state = {
     thisMovie: {
@@ -45,7 +42,6 @@ class Details extends Component {
   render() {
     return (
       <>
-        {/* {JSON.stringify(this.props.match)} */}
         <br />
         <br />
         {/* For debugging:
@@ -54,7 +50,6 @@ class Details extends Component {
         ) : (
           JSON.stringify(this.state.thisMovie)
         )} */}
-
         <img
           src={this.state.thisMovie.poster}
           alt={this.state.thisMovie.title}

@@ -55,9 +55,6 @@ class Edit extends Component {
   };
 
   saveClicked = () => {
-    // this.setState({
-    //   movieEdits: { ...this.state.movieEdits},
-    // });
     this.props.dispatch({
       type: "UPDATE_MOVIE",
       payload: { ...this.state.movieEdits, id: this.state.thisMovie.id },
@@ -68,7 +65,6 @@ class Edit extends Component {
   render() {
     return (
       <>
-        {/* {JSON.stringify(this.props.match)} */}
         <br />
         <br />
         {/* For debugging:
