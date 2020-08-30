@@ -30,7 +30,7 @@ Link to software that is required to install the app (e.g. node).
 
 ## Usage
 
-How does someone use this application? Tell a user story here.
+How does someone use this application?
 
 1. Click on a movie to see its page
 2. On the movie's page, you can read a brief description
